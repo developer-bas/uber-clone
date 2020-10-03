@@ -14,6 +14,8 @@
 		150CE1CA251C566E003B7865 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150CE1C8251C566E003B7865 /* LaunchScreen.storyboard */; };
 		150CE1DB251C57EB003B7865 /* LogingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150CE1DA251C57EB003B7865 /* LogingController.swift */; };
 		150CE1EB251C5E03003B7865 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150CE1EA251C5E03003B7865 /* Extension.swift */; };
+		15A09204252821840004E70B /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A09203252821840004E70B /* AuthButton.swift */; };
+		15E31BB62523443100195552 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E31BB52523443100195552 /* SignUpController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		150CE1CB251C566E003B7865 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		150CE1DA251C57EB003B7865 /* LogingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogingController.swift; sourceTree = "<group>"; };
 		150CE1EA251C5E03003B7865 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		15A09203252821840004E70B /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
+		15E31BB52523443100195552 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 		150CE1D3251C56F7003B7865 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15A09203252821840004E70B /* AuthButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -91,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				150CE1DA251C57EB003B7865 /* LogingController.swift */,
+				15E31BB52523443100195552 /* SignUpController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,6 +186,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E31BB62523443100195552 /* SignUpController.swift in Sources */,
+				15A09204252821840004E70B /* AuthButton.swift in Sources */,
 				150CE1DB251C57EB003B7865 /* LogingController.swift in Sources */,
 				150CE1BE251C566D003B7865 /* AppDelegate.swift in Sources */,
 				150CE1C0251C566D003B7865 /* SceneDelegate.swift in Sources */,

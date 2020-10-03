@@ -19,36 +19,39 @@ class LogingController: UIViewController{
     }()
     
     private lazy var emailContainerView : UIView = {
-        let view = UIView()
-        
-        let imageView = UIImageView()
-        imageView.image  = #imageLiteral(resourceName: "email")
-        imageView.alpha = 0.87
-        view.addSubview(imageView)
-        imageView.centerY(inView: view)
-        imageView.anchor(left: view.leftAnchor, paddingLeft: 8,width: 24 ,height: 24)
-        
-        view.addSubview(emailTextField)
-        emailTextField.centerY(inView: view)
-        emailTextField.anchor(left: imageView.rightAnchor, bottom: view.bottomAnchor,
-                              right: view.rightAnchor,paddingLeft: 8, paddingBottom: 8)
-        
-        let separatorView = UIView()
-        separatorView.backgroundColor = .lightGray
-        view.addSubview(separatorView)
-        separatorView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,paddingLeft: 8,height: 0.75)
-        
+        let view = UIView().inputContainerView(image: #imageLiteral(resourceName: "email"), textField: emailTextField)
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return view
+    }()
+    
+    private lazy var passwordContainerView : UIView = {
+        let view = UIView().inputContainerView(image: #imageLiteral(resourceName: "padlock"), textField: passwordTextFiel)
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
     
     private let emailTextField : UITextField = {
-        let tf = UITextField()
-        tf.borderStyle = .none
-        tf.font = UIFont.systemFont(ofSize: 16)
-        tf.textColor = .white
-        tf.keyboardAppearance = .dark
-        tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        return tf
+        return UITextField().textField(withPlaceholder: "Email", isSecureTextEntry: false)
+    }()
+    
+    private let passwordTextFiel : UITextField = {
+        return UITextField().textField(withPlaceholder: "Password", isSecureTextEntry: true)
+    }()
+    
+    private let loginButton: AuthButton = {
+        let  button =  AuthButton(type: .system)
+        button.setTitle("Log In", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        return button
+    }()
+    
+    let dontHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "¿No tienes una cuenta? ",attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        attributedTitle.append(NSAttributedString(string: "Registrate", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.mainBlue]))
+        button.addTarget(self, action: #selector(handleShowSingUp), for: .touchUpInside)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        return button
     }()
     
     
@@ -58,21 +61,53 @@ class LogingController: UIViewController{
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            view.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
-            
-            view.addSubview(titleLabel)
-            titleLabel.anchor(top:view.safeAreaLayoutGuide.topAnchor)
-            titleLabel.centerX(inView: view)
-            
-            view.addSubview(emailContainerView)
-            emailContainerView.anchor(top:titleLabel.bottomAnchor,left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 16,paddingRight: 16, height: 50)
-            
+            configureUI()
         }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+    
+//    MARK: - Selectors
+    @objc func handleShowSingUp(){
+        print("Attemp to push controller")
+        let controller = SingUpController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+//    MARK:- Helper functions
+    
+    func configureUI(){
+        
+        configureNavigationBar()
+        
+        view.backgroundColor = .backgroundColor
+        
+        view.addSubview(titleLabel)
+        titleLabel.anchor(top:view.safeAreaLayoutGuide.topAnchor)
+        titleLabel.centerX(inView: view)
+        
+        
+        let stack = UIStackView(arrangedSubviews: [emailContainerView,passwordContainerView,loginButton])
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 24
+        
+        view.addSubview(stack)
+        stack.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+                     paddingTop: 40,
+                     paddingLeft: 16,
+                     paddingRight: 16)
 
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.centerX(inView: view)
+        dontHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, height: 32)
+        
+    }
+    func configureNavigationBar () {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .black
+    }
 
 }
 
