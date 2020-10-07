@@ -5,9 +5,10 @@
 //  Created by PROGRAMAR on 23/09/20.
 //
 
+import Firebase
 
 import  UIKit
-class LogingController: UIViewController{
+class LoginController: UIViewController{
     
         // MARK : - Properties
     private let titleLabel: UILabel = {
@@ -42,6 +43,7 @@ class LogingController: UIViewController{
         let  button =  AuthButton(type: .system)
         button.setTitle("Log In", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
     
@@ -69,6 +71,30 @@ class LogingController: UIViewController{
     }
     
 //    MARK: - Selectors
+    
+    @objc func handleLogin(){
+        
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextFiel.text else { return }
+        
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            
+            if let error = error {
+                print("Error to log user in  with error \(error.localizedDescription)")
+                return
+            }
+            
+            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController
+                    else  { return }
+            
+            controller.configureUI()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
+    
     @objc func handleShowSingUp(){
         print("Attemp to push controller")
         let controller = SingUpController()
