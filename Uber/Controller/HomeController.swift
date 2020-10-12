@@ -15,10 +15,17 @@ class HomeController: UIViewController  {
     //    MARK: -Properties
     
     private let mapview = MKMapView()
-    private let locationManager =  CLLocationManager()
+    private let locationManager =  LocationHandler.shared.locationManager
     private let inputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
+    private var user: User? {
+        didSet{
+            locationInputView.user = user
+        }
+    }
+    
+   
     
     private final let locationInptViewHeight: CGFloat = 200
     
@@ -28,9 +35,29 @@ class HomeController: UIViewController  {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         enableLocationServices()
+        fetchUserData()
+        fetchDrivers()
     }
     
     // MARK: - API
+    
+    func fetchUserData(){
+        guard let curretUid = Auth.auth().currentUser?.uid else {return}
+        Service.shared.fetchUserData(uid: curretUid) { user in
+            self.user = user
+        }
+    }
+    
+    func fetchDrivers(){
+        guard let location = locationManager?.location else {return}
+        Service.shared.fetchDrivers(location: location) { (driver) in
+            guard let coordinate = driver.location?.coordinate else{ return}
+            let annotation = DriverAnnotation(uid: driver.uid ,coordinate: coordinate)
+            
+            self.mapview.addAnnotation(annotation)
+        }
+    }
+    
     
     func checkIfUserIsLoggedIn(){
         if  Auth.auth().currentUser?.uid == nil {
@@ -127,18 +154,16 @@ class HomeController: UIViewController  {
 }
 
 
-extension HomeController : CLLocationManagerDelegate{
+extension HomeController {
     
 
    
     func enableLocationServices(){
         
-        locationManager.delegate = self
-        
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("DEBUG: NOT DETERRMINED")
-            locationManager.requestWhenInUseAuthorization()
+            locationManager?.requestWhenInUseAuthorization()
             
         case .restricted: break
 
@@ -146,22 +171,18 @@ extension HomeController : CLLocationManagerDelegate{
             
         case .authorizedAlways:
             print("DEBUG: Auth always")
-            locationManager.startUpdatingLocation()
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager?.startUpdatingLocation()
+            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         case .authorizedWhenInUse:
           print("DEBUG: authorized when in use ")
-            locationManager.requestAlwaysAuthorization()
+            locationManager?.requestAlwaysAuthorization()
         @unknown default:
             break
         
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse{
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
+    
     
     
 }
