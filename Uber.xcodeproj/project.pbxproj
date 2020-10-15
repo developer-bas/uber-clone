@@ -15,6 +15,7 @@
 		150CE1CA251C566E003B7865 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150CE1C8251C566E003B7865 /* LaunchScreen.storyboard */; };
 		150CE1DB251C57EB003B7865 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150CE1DA251C57EB003B7865 /* LoginController.swift */; };
 		150CE1EB251C5E03003B7865 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150CE1EA251C5E03003B7865 /* Extension.swift */; };
+		1515005A253814180087E085 /* RideActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15150059253814180087E085 /* RideActionView.swift */; };
 		1589FA48252D74210034BDAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1589FA47252D74210034BDAD /* GoogleService-Info.plist */; };
 		1589FA5D252DB89D0034BDAD /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589FA5C252DB89D0034BDAD /* HomeController.swift */; };
 		1589FA6D252EB9140034BDAD /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589FA6C252EB9140034BDAD /* LocationInputActivationView.swift */; };
@@ -38,6 +39,7 @@
 		150CE1CB251C566E003B7865 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		150CE1DA251C57EB003B7865 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		150CE1EA251C5E03003B7865 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		15150059253814180087E085 /* RideActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideActionView.swift; sourceTree = "<group>"; };
 		1589FA47252D74210034BDAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1589FA5C252DB89D0034BDAD /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		1589FA6C252EB9140034BDAD /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				1589FA6C252EB9140034BDAD /* LocationInputActivationView.swift */,
 				1589FA6F252ECC3E0034BDAD /* LocationInputView.swift */,
 				1589FA72252FDCFD0034BDAD /* LocationCell.swift */,
+				15150059253814180087E085 /* RideActionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				1589FA73252FDCFD0034BDAD /* LocationCell.swift in Sources */,
 				1589FA7C253047AE0034BDAD /* LocationHandler.swift in Sources */,
 				150CE1C0251C566D003B7865 /* SceneDelegate.swift in Sources */,
+				1515005A253814180087E085 /* RideActionView.swift in Sources */,
 				1589FA7925302AB70034BDAD /* User.swift in Sources */,
 				1589FA7625301FC50034BDAD /* Service.swift in Sources */,
 				1589FA6D252EB9140034BDAD /* LocationInputActivationView.swift in Sources */,
