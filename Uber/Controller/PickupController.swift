@@ -8,11 +8,16 @@
 import UIKit
 import MapKit
 
+protocol PickupControllerDelegate: class {
+    func didAcceptTrip(_ trip: Trip)
+}
+
 class PickupController: UIViewController {
     
 //    MARK: - Properties
     private let mapView = MKMapView()
     let trip : Trip
+    weak var delegate : PickupControllerDelegate?
     
     private let cancelButton: UIButton = {
         let button = UIButton(type: .system)
@@ -53,6 +58,7 @@ class PickupController: UIViewController {
         
         
         configureUI()
+        configureMapView()
         
     }
     
@@ -63,7 +69,10 @@ class PickupController: UIViewController {
 //    MARK: - Selectors
     
     @objc func handleAcceptTrip(){
-        
+        Service.shared.acceptTrip(trip: trip) { (error, ref) in
+            self.delegate?.didAcceptTrip(self.trip)
+            
+        }
     }
     
     @objc func handleDismissal(){
@@ -72,6 +81,18 @@ class PickupController: UIViewController {
 //    MARK: - API
     
 //    MARK: - Helper functions
+    
+    
+    func configureMapView(){
+        let region = MKCoordinateRegion(center: trip.pickupCoordinates, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.setRegion(region, animated: false)
+       
+        let anno = MKPointAnnotation()
+        anno.coordinate = trip.pickupCoordinates
+        mapView.addAnnotation(anno)
+        self.mapView.selectAnnotation(anno, animated: true)
+    }
+    
     func configureUI(){
         view.backgroundColor = .backgroundColor
         view.addSubview(cancelButton)
