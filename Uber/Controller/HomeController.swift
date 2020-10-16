@@ -43,6 +43,12 @@ class HomeController: UIViewController  {
     private var user: User? {
         didSet{
             locationInputView.user = user
+            if user?.accountType == .passenger {
+                fetchDrivers()
+                configureLocationInputActivationView()
+            }else{
+                print("DEBUG: Didset you're a driver")
+            }
         }
     }
     
@@ -60,7 +66,8 @@ class HomeController: UIViewController  {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         enableLocationServices()
-//signOut()
+        
+//        signOut()
        
     }
     
@@ -170,7 +177,7 @@ class HomeController: UIViewController  {
     func configure() {
         configureUI()
         fetchUserData()
-        fetchDrivers()
+//        fetchDrivers()
     }
     
     func configureUI(){
@@ -181,20 +188,24 @@ class HomeController: UIViewController  {
         view.addSubview(actionButton)
         actionButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 16, paddingLeft: 20, width: 30  ,height: 30)
         
+        
+        
+        configureTableview()
+        
+    }
+    
+    func configureLocationInputActivationView(){
+        
         view.addSubview(inputActivationView)
         inputActivationView.centerX(inView: view)
         inputActivationView.setDimensions(height: 50, width: view.frame.width - 64 )
         inputActivationView.anchor(top: actionButton.bottomAnchor, paddingTop: 32)
         inputActivationView.alpha = 0
-        
         inputActivationView.delegate = self
         
         UIView.animate(withDuration: 2) {
             self.inputActivationView.alpha = 1
         }
-        
-        configureTableview()
-        
     }
     
 
@@ -227,6 +238,9 @@ class HomeController: UIViewController  {
     
     func configureRideActionView(){
         view.addSubview(rideActionView)
+        
+        rideActionView.delegate = self
+        
         rideActionView.frame = CGRect(x: 0, y: view.frame.height , width: view.frame.width, height: rideActionViewHeight)
     }
     
@@ -492,4 +506,21 @@ extension HomeController : UITableViewDelegate, UITableViewDataSource {
             
         }
     }
+}
+
+extension HomeController: RideActionViewDelegate {
+    func uploadTrip(_ view: RideActionView) {
+        guard let pickupCoordinates = locationManager?.location?.coordinate  else {return}
+        guard let destinationCoordinates = view.destination?.coordinate else {return}
+        Service.shared.uploadTrip(pickupCoordinates, destinationCoordinates) { (error, ref) in
+            if let  error = error {
+                print("debug: \(error.localizedDescription)")
+            }
+            
+            print("debug: did upload trip successfully")
+        }
+    }
+    
+    
+
 }
