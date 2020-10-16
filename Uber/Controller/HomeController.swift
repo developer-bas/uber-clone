@@ -47,8 +47,16 @@ class HomeController: UIViewController  {
                 fetchDrivers()
                 configureLocationInputActivationView()
             }else{
-                print("DEBUG: Didset you're a driver")
+                observeTrips()
             }
+        }
+    }
+    
+    private var trip : Trip? {
+        didSet{
+            guard let trip = trip else { return }
+            let controller = PickupController(trip: trip)
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -130,6 +138,12 @@ class HomeController: UIViewController  {
                 self.mapview.addAnnotation(annotation)
             }
            
+        }
+    }
+    
+    func observeTrips(){
+        Service.shared.observeTrips { trip in
+            self.trip = trip
         }
     }
     

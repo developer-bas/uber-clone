@@ -20,6 +20,7 @@ struct Service {
     static let shared = Service()
   
     
+    
     func fetchUserData(uid: String, completion: @escaping(User) -> Void){
        
         REF_USERS.child(uid).observeSingleEvent(of: .value) { (snapshot) in
@@ -59,6 +60,16 @@ struct Service {
         REF_TRIPS.child(uid).updateChildValues(values, withCompletionBlock: completion)
     }
     
-    
+    func observeTrips(completion: @escaping(Trip) -> Void){
+        REF_TRIPS.observe(.childAdded) { (snapshot) in
+            guard let dictionary = snapshot.value as? [String:Any] else {return}
+            print("DEBUG: Dictionary \(dictionary)")
+            
+            let uid = snapshot.key
+            let trip =  Trip(passengerUid: uid, diccionary: dictionary)
+            print("DEBUG: trip state \(trip.state)")
+            completion(trip)
+        }
+    }
     
 }
