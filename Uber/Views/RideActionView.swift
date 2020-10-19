@@ -13,6 +13,46 @@ protocol RideActionViewDelegate : class {
     func uploadTrip(_ view: RideActionView)
 }
 
+enum RideActionViewConfiguration {
+    case requestRide
+    case tripAccepted
+    case pickupPassenger
+    case tripInProgress
+    case endTrip
+    
+    init(){
+        self = .requestRide
+    }
+    
+}
+
+enum ButtonAction : CustomStringConvertible{
+    case requestRide
+    case cancel
+    case getDirections
+    case pickup
+    case dropOff
+    
+    var description : String {
+        switch self{
+        case .requestRide: return "CONFIRM UBERX"
+        case .cancel : return "CANCEL RIDE"
+        case .getDirections : return "GET DIRECTIONS"
+        case .pickup : return "PICKUP PASSENGER"
+        case .dropOff : return "DROP OFF  PASSENGER"
+            
+        }
+        
+        
+    }
+    
+    init() {
+        self = .requestRide
+    }
+    
+}
+
+
 class RideActionView: UIView {
 
 //      MARK: - Properties
@@ -23,9 +63,10 @@ class RideActionView: UIView {
             addressLabel.text = destination?.address
         }
     }
-    
-    
+    var config = RideActionViewConfiguration()
+    var buttonAction = ButtonAction()
     weak  var delegate : RideActionViewDelegate?
+    var user: User?  
     
     let titleLabel: UILabel =  {
         let label = UILabel()
@@ -128,6 +169,36 @@ class RideActionView: UIView {
     
     @objc func actionButtonPressed(){
         delegate?.uploadTrip(self)
+    }
+    
+//    MARK: - Helper functions
+   public func confugureUI(withConfig config : RideActionViewConfiguration){
+        switch config {
+        
+        case .requestRide:
+            buttonAction = .requestRide
+            actionButton.setTitle(buttonAction.description, for: .normal)
+            
+        case .tripAccepted:
+            guard let user = user else{ return }
+            if user.accountType == .passenger{
+                
+                titleLabel.text =  "Conductor  en camino"
+                buttonAction = .cancel
+                actionButton.setTitle(buttonAction.description, for: .normal)
+               
+            }else{
+                titleLabel.text =  "En camino por :"
+                buttonAction = .getDirections
+                actionButton.setTitle(buttonAction.description, for: .normal)
+            }
+        case .pickupPassenger:
+            break
+        case .tripInProgress:
+            break
+        case .endTrip:
+            break
+        }
     }
 
 }

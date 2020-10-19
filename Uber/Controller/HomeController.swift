@@ -125,6 +125,14 @@ class HomeController: UIViewController  {
             
             if trip.state == .accepted{
                 self.shouldPresentLoadingView(false)
+                
+                guard let driverUid = trip.driverUid else {return}
+                
+                Service.shared.fetchUserData(uid: driverUid) { driver in
+                
+                    self.animateRideActionView(shouldSHow: true, config: .tripAccepted, user: driver)
+                }
+                
             }
         }
     }
@@ -309,21 +317,32 @@ class HomeController: UIViewController  {
             }, completion: completion)
         }
     
-    func animateRideActionView(shouldSHow: Bool, destination: MKPlacemark? = nil){
+    func animateRideActionView(shouldSHow: Bool, destination: MKPlacemark? = nil, config: RideActionViewConfiguration? = nil, user : User? = nil){
        
         let yOrigen = shouldSHow ? self.view.frame.height - self.rideActionViewHeight :
             self.view.frame.height
         
+        UIView.animate(withDuration: 0.3) {
+            self.rideActionView.frame.origin.y = yOrigen
+        }
+        
         if shouldSHow {
-            guard let destination = destination else {return}
-            rideActionView.destination = destination
-        }
-        
-            UIView.animate(withDuration: 0.3) {
-                self.rideActionView.frame.origin.y = yOrigen
+            guard let config = config else {return}
             
-        
+            if let user = user {
+                rideActionView.user = user
+            }
+            
+            
+            if let destination = destination{
+                rideActionView.destination = destination
+            }
+            
+            rideActionView.confugureUI(withConfig: config)
+            
         }
+        
+           
         
        
     }
@@ -535,7 +554,7 @@ extension HomeController : UITableViewDelegate, UITableViewDataSource {
 //            self.mapview.showAnnotations(annotations, animated: true)
             self.mapview.zoomToFit(annotations: annotations)
             
-            self.animateRideActionView(shouldSHow: true, destination: selectedPlacemark)
+            self.animateRideActionView(shouldSHow: true, destination: selectedPlacemark, config: .requestRide)
             
             
             
@@ -569,9 +588,29 @@ extension HomeController: RideActionViewDelegate {
 
 extension HomeController: PickupControllerDelegate{
     func didAcceptTrip(_ trip: Trip) {
-        self.trip?.state = .accepted
         
-        self.dismiss(animated: true, completion: nil)
+        let anno = MKPointAnnotation()
+        anno.coordinate = trip.pickupCoordinates
+        mapview.addAnnotation(anno)
+        mapview.selectAnnotation(anno, animated: true)
+        
+        let placmark =  MKPlacemark(coordinate: trip.pickupCoordinates)
+        let mapItem = MKMapItem(placemark: placmark)
+        generatePolyline(forDestination: mapItem)
+        
+        mapview.zoomToFit(annotations: mapview.annotations)
+        
+        
+        
+        self.dismiss(animated: true) {
+            
+            Service.shared.fetchUserData(uid: trip.passengerUid) { passenger in
+                self.animateRideActionView(shouldSHow: true,config: .tripAccepted,user: passenger)
+            
+            }
+            
+            
+        }
     }
     
     
