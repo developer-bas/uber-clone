@@ -582,6 +582,21 @@ extension HomeController: RideActionViewDelegate {
         }
     }
     
+    func cancelTrip() {
+        Service.shared.cancelTrip { (error, ref) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+                return
+            }
+            
+            
+            self.animateRideActionView(shouldSHow: false)
+            self.removeAnnotationAndOverlays()
+            self.actionButton.setImage(#imageLiteral(resourceName: "hamburguer").withRenderingMode(.alwaysOriginal), for: .normal)
+            self.actionButtonConfig = .showManu
+        }
+    }
+    
     
 
 }
@@ -600,6 +615,11 @@ extension HomeController: PickupControllerDelegate{
         
         mapview.zoomToFit(annotations: mapview.annotations)
         
+        Service.shared.observeTripCancelled(trip: trip) {
+            self.removeAnnotationAndOverlays()
+            self.animateRideActionView(shouldSHow: false)
+            self.mapview.zoomToFit(annotations: self.mapview.annotations)
+        }
         
         
         self.dismiss(animated: true) {
