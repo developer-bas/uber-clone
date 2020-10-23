@@ -409,12 +409,28 @@ private extension HomeController {
         }
     }
     
+    func centerMapOnUserLocation(){
+        guard let coordinate = locationManager?.location?.coordinate else {return}
+        let region = MKCoordinateRegion(center: coordinate,
+                                        latitudinalMeters: 2000,
+                                        longitudinalMeters: 2000)
+        mapview.setRegion(region, animated: true)
+    }
+    
 }
 
 
 
 
 extension HomeController: MKMapViewDelegate{
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        guard let user = self.user else { return }
+        guard user.accountType == .driver else{ return }
+        
+        guard let location = user.location else{ return }
+        Service.shared.updateDriverLocation(location: location)
+    }
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -594,6 +610,7 @@ extension HomeController: RideActionViewDelegate {
             self.removeAnnotationAndOverlays()
             self.actionButton.setImage(#imageLiteral(resourceName: "hamburguer").withRenderingMode(.alwaysOriginal), for: .normal)
             self.actionButtonConfig = .showManu
+            self.centerMapOnUserLocation()
         }
     }
     
@@ -618,7 +635,9 @@ extension HomeController: PickupControllerDelegate{
         Service.shared.observeTripCancelled(trip: trip) {
             self.removeAnnotationAndOverlays()
             self.animateRideActionView(shouldSHow: false)
-            self.mapview.zoomToFit(annotations: self.mapview.annotations)
+//            self.mapview.zoomToFit(annotations: self.mapview.annotations)
+            self.centerMapOnUserLocation()
+            self.presentAlertController(withTitle: "Ooops!",withMessage: "El  pasajero cancelo el viaje")
         }
         
         
