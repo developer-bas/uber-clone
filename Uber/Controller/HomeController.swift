@@ -417,6 +417,11 @@ private extension HomeController {
         mapview.setRegion(region, animated: true)
     }
     
+    func setCustomRegion(withCoordinares coordinates :  CLLocationCoordinate2D){
+        let region = CLCircularRegion(center: coordinates, radius: 25, identifier: "pickup")
+        locationManager?.startMonitoring(for: region)
+    }
+    
 }
 
 
@@ -460,12 +465,18 @@ extension HomeController: MKMapViewDelegate{
 }
 
 
-extension HomeController {
+extension HomeController : CLLocationManagerDelegate {
     
-
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print("")
+    }
    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("DEBUG: ")
+    }
+    
     func enableLocationServices(){
-        
+        locationManager?.delegate = self
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("DEBUG: NOT DETERRMINED")
@@ -611,6 +622,8 @@ extension HomeController: RideActionViewDelegate {
             self.actionButton.setImage(#imageLiteral(resourceName: "hamburguer").withRenderingMode(.alwaysOriginal), for: .normal)
             self.actionButtonConfig = .showManu
             self.centerMapOnUserLocation()
+            
+            self.inputActivationView.alpha = 0
         }
     }
     
@@ -626,6 +639,8 @@ extension HomeController: PickupControllerDelegate{
         mapview.addAnnotation(anno)
         mapview.selectAnnotation(anno, animated: true)
         
+        setCustomRegion(withCoordinares: trip.pickupCoordinates)
+        
         let placmark =  MKPlacemark(coordinate: trip.pickupCoordinates)
         let mapItem = MKMapItem(placemark: placmark)
         generatePolyline(forDestination: mapItem)
@@ -638,6 +653,8 @@ extension HomeController: PickupControllerDelegate{
 //            self.mapview.zoomToFit(annotations: self.mapview.annotations)
             self.centerMapOnUserLocation()
             self.presentAlertController(withTitle: "Ooops!",withMessage: "El  pasajero cancelo el viaje")
+            
+            
         }
         
         
