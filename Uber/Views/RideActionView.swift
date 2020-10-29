@@ -60,10 +60,14 @@ class RideActionView: UIView {
             addressLabel.text = destination?.address
         }
     }
-    var config = RideActionViewConfiguration()
     var buttonAction = ButtonAction()
     weak  var delegate : RideActionViewDelegate?
-    var user: User?  
+    var user: User?
+    
+    var config = RideActionViewConfiguration() {
+        didSet { confugureUI(withConfig: config) }
+    }
+
     
     let titleLabel: UILabel =  {
         let label = UILabel()
@@ -189,7 +193,7 @@ class RideActionView: UIView {
     }
     
 //    MARK: - Helper functions
-   public func confugureUI(withConfig config : RideActionViewConfiguration){
+  private func confugureUI(withConfig config : RideActionViewConfiguration){
         switch config {
         
         

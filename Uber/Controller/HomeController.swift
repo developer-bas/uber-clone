@@ -338,15 +338,11 @@ class HomeController: UIViewController  {
                 rideActionView.destination = destination
             }
             
-            rideActionView.confugureUI(withConfig: config)
+     
+            rideActionView.config = config
             
         }
-        
-           
-        
-       
     }
-    
 }
 
 
@@ -472,7 +468,8 @@ extension HomeController : CLLocationManagerDelegate {
     }
    
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("DEBUG: ")
+        
+        self.rideActionView.config = .pickupPassenger
     }
     
     func enableLocationServices(){
@@ -616,14 +613,15 @@ extension HomeController: RideActionViewDelegate {
                 return
             }
             
+            self.centerMapOnUserLocation()
             
             self.animateRideActionView(shouldSHow: false)
             self.removeAnnotationAndOverlays()
             self.actionButton.setImage(#imageLiteral(resourceName: "hamburguer").withRenderingMode(.alwaysOriginal), for: .normal)
             self.actionButtonConfig = .showManu
-            self.centerMapOnUserLocation()
             
-            self.inputActivationView.alpha = 0
+            
+            self.inputActivationView.alpha = 1
         }
     }
     
