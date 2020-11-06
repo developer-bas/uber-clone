@@ -44,8 +44,9 @@ struct Trip {
 }
 
 enum TripState: Int {
-    case requested = 0
-    case accepted = 1
-    case inProgress = 2
-    case completed = 3
+    case requested 
+    case accepted
+    case driverArrived
+    case inProgress
+    case completed
 }

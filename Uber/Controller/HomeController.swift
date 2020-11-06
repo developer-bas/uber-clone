@@ -123,7 +123,13 @@ class HomeController: UIViewController  {
         Service.shared.observeCurrentTrip { (trip) in
             self.trip = trip
             
-            if trip.state == .accepted{
+            guard let state = trip.state  else { return }
+            
+            switch state{
+            
+            case .requested:
+                break
+            case .accepted:
                 self.shouldPresentLoadingView(false)
                 
                 guard let driverUid = trip.driverUid else {return}
@@ -132,7 +138,12 @@ class HomeController: UIViewController  {
                 
                     self.animateRideActionView(shouldSHow: true, config: .tripAccepted, user: driver)
                 }
-                
+            case .driverArrived:
+                self.rideActionView.config = .driverArrived
+            case .inProgress:
+                break
+            case .completed:
+                break
             }
         }
     }
@@ -470,6 +481,8 @@ extension HomeController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         
         self.rideActionView.config = .pickupPassenger
+        guard let trip = self.trip else {return}
+        Service.shared.updateTripeState(trip: trip, state: .driverArrived)
     }
     
     func enableLocationServices(){
@@ -631,6 +644,8 @@ extension HomeController: RideActionViewDelegate {
 
 extension HomeController: PickupControllerDelegate{
     func didAcceptTrip(_ trip: Trip) {
+        self.trip = trip
+        
         
         let anno = MKPointAnnotation()
         anno.coordinate = trip.pickupCoordinates

@@ -16,6 +16,7 @@ protocol RideActionViewDelegate : class {
 enum RideActionViewConfiguration {
     case requestRide
     case tripAccepted
+    
     case driverArrived
     case pickupPassenger
     case tripInProgress
@@ -253,7 +254,11 @@ class RideActionView: UIView {
                 
             }
         case .driverArrived:
-            print("ARRIVED")
+            guard let user =  user else {return}
+            if user.accountType == .driver{
+                titleLabel.text = "Driver Has arrived"
+                addressLabel.text = "Please meet driver at pickup location"
+            }
         }
     }
 
