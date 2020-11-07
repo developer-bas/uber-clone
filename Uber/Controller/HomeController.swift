@@ -125,14 +125,18 @@ class HomeController: UIViewController  {
             
             guard let state = trip.state  else { return }
             
+            guard let driverUid = trip.driverUid else {return}
+            
             switch state{
             
             case .requested:
                 break
             case .accepted:
                 self.shouldPresentLoadingView(false)
+                self.removeAnnotationAndOverlays()
                 
-                guard let driverUid = trip.driverUid else {return}
+                self.zoomForActiveTripe(withDriverUid: driverUid)
+                
                 
                 Service.shared.fetchUserData(uid: driverUid) { driver in
                 
@@ -166,6 +170,7 @@ class HomeController: UIViewController  {
                     guard let driverAnno = annotation as? DriverAnnotation else { return false}
                     if driverAnno.uid  == driver.uid{
                         driverAnno.updateAnnotationPosition(withCoordinate: coordinate)
+                        self.zoomForActiveTripe(withDriverUid: driver.uid)
                         return true
                     }
                     
@@ -427,6 +432,26 @@ private extension HomeController {
     func setCustomRegion(withCoordinares coordinates :  CLLocationCoordinate2D){
         let region = CLCircularRegion(center: coordinates, radius: 25, identifier: "pickup")
         locationManager?.startMonitoring(for: region)
+    }
+    
+    func zoomForActiveTripe(withDriverUid uid: String){
+        var annotations  = [MKAnnotation]()
+        
+        self.mapview.annotations.forEach { (annotation) in
+           
+            
+            if let anno = annotation as? DriverAnnotation {
+                if anno.uid ==  uid{
+                    annotations.append(anno)
+                }
+            }
+            
+            if let anno = annotation as? MKUserLocation{
+                annotations.append(anno)
+            }
+        }
+        
+        self.mapview.zoomToFit(annotations: annotations)
     }
     
 }

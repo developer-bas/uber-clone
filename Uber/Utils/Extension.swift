@@ -184,7 +184,7 @@ extension MKMapView {
             zoomRect = zoomRect.union(pointRect)
             
         }
-        let insets = UIEdgeInsets(top: 75, left: 75, bottom: 200, right: 75)
+        let insets = UIEdgeInsets(top: 75, left: 75, bottom: 300, right: 75)
         setVisibleMapRect(zoomRect, edgePadding: insets, animated: true)
     }
 }
