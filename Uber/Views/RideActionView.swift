@@ -254,6 +254,8 @@ class RideActionView: UIView {
                 actionButton.setTitle(buttonAction.description, for: .normal)
                 
             }
+            
+            titleLabel.text = "Arrived at destination "
         case .driverArrived:
             guard let user =  user else {return}
             if user.accountType == .driver{
