@@ -40,14 +40,12 @@ struct Service {
                 self.fetchUserData(uid: uid) { (user) in
                     var driver = user
                     driver.location = location
-                    
                     completion(driver)
-                    
                 }
-                
             })
         }
     }
+    
     
     func uploadTrip(_ pickupCoordinates: CLLocationCoordinate2D, _ destinationCoordinates: CLLocationCoordinate2D, completion: @escaping (Error?, DatabaseReference) -> Void ){
         
@@ -111,10 +109,11 @@ struct Service {
         geofire.setLocation(location, forKey: uid)
     }
     
-    func updateTripeState(trip: Trip, state: TripState){
-        REF_TRIPS.child(trip.passengerUid).child("state").setValue(state.rawValue)
+    func updateTripeState(trip: Trip, state: TripState, completion: @escaping(Error?,DatabaseReference)-> Void ){
+        REF_TRIPS.child(trip.passengerUid).child("state").setValue(state.rawValue, withCompletionBlock: completion)
     }
     
+ 
     
 }
 
