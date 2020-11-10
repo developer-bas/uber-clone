@@ -151,10 +151,20 @@ class HomeController: UIViewController  {
                 self.rideActionView.config = .driverArrived
             case .inProgress:
                 self.rideActionView.config = .tripInProgress
-            case .completed:
-                break
             case .arrivedAtDestination:
                 self.rideActionView.config = .endTrip
+                
+            case .completed:
+                
+                Service.shared.deleteTrip { (err, ref) in
+                    self.animateRideActionView(shouldSHow: false)
+                    self.centerMapOnUserLocation()
+                    self.configureActionButton(config: .showManu)
+                    self.inputActivationView.alpha = 1
+                    self.presentAlertController(withTitle: "Trip completed", withMessage: "We hope you enjoyed your trip")
+                    
+                }
+           
             }
         }
     }
@@ -171,6 +181,10 @@ class HomeController: UIViewController  {
             
             
             self.generatePolyline(forDestination: mapItem)
+            
+            self.mapview.zoomToFit(annotations: self.mapview.annotations)
+            
+        
         }
     }
     
@@ -667,6 +681,8 @@ extension HomeController : UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeController: RideActionViewDelegate {
+    
+    
     func pickupPassenger() {
         starTrip()
     }
@@ -691,7 +707,7 @@ extension HomeController: RideActionViewDelegate {
     }
     
     func cancelTrip() {
-        Service.shared.cancelTrip { (error, ref) in
+        Service.shared.deleteTrip { (error, ref) in
             if let error = error {
                 print("Error \(error.localizedDescription)")
                 return
@@ -708,7 +724,16 @@ extension HomeController: RideActionViewDelegate {
             self.inputActivationView.alpha = 1
         }
     }
-    
+    func dropOffPassenger() {
+        guard  let trip = self.trip else {
+            return
+        }
+        Service.shared.updateTripeState(trip: trip, state: .completed) { (err, ref) in
+            self.removeAnnotationAndOverlays()
+            self.centerMapOnUserLocation()
+            self.animateRideActionView(shouldSHow: false)
+        }
+    }
     
 
 }
