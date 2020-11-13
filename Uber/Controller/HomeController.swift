@@ -26,6 +26,10 @@ private enum AnnotationType:  String{
     case destination
 }
 
+protocol HomeControllerDelegate: class {
+    func handleMenuToggle()
+}
+
 class HomeController: UIViewController  {
     //    MARK: -Properties
     
@@ -42,6 +46,7 @@ class HomeController: UIViewController  {
     private var actionButtonConfig = ActionButtonConfiguration()
     private var route: MKRoute?
     
+    weak var delegate : HomeControllerDelegate?
     
     
     
@@ -103,7 +108,7 @@ class HomeController: UIViewController  {
     @objc func actionButtonPressed(){
         switch actionButtonConfig {
         case .showManu:
-           print("")
+            delegate?.handleMenuToggle()
             
         case .dismissActionView:
             
