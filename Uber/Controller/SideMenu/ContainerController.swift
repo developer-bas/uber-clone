@@ -12,7 +12,7 @@ class ContainerController: UIViewController{
 //    MARK: - Properties
     
     private let homeController = HomeController()
-    private var menuController = MenuController()
+    private var menuController: MenuController!
     var isExpanded = false
     
     private var user : User? {
@@ -63,13 +63,14 @@ class ContainerController: UIViewController{
         homeController.delegate = self
         
     }
-    
+     
     func configureMenuController (withUser user: User){
      
+        menuController = MenuController(user: user)
         addChild(menuController)
         menuController.didMove(toParent: self)
         view.insertSubview(menuController.view, at: 0)
-        menuController.user = user
+        
 
     }
     

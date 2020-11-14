@@ -10,12 +10,15 @@ import UIKit
 class MenuHeader: UIView {
 //    MARK: - Properties
     
-    var user: User?{
-        didSet{
-            fullName.text = user?.fullname
-            emailLabel.text = user?.email
-        }
-    }
+//    var user: User?{
+//        didSet{
+//            fullName.text = user?.fullname
+//            emailLabel.text = user?.email
+//        }
+//    }
+//
+    
+    private let user: User
     
     private let profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -23,25 +26,27 @@ class MenuHeader: UIView {
         return iv
     }()
     
-    private let fullName : UILabel = {
+    private lazy var fullName : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "Sebas el pro"
+        label.text = user.fullname
         label.backgroundColor = .white
         return label
     }()
     
-    private let emailLabel : UILabel = {
+    private lazy var emailLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.backgroundColor = .lightGray
-        label.text = "test@email.com"
+        label.text = user.email
         return label
     }()
     
     
 //    MARK: - Lifecycle
-    override init(frame: CGRect) {
+    
+    init(user: User, frame: CGRect){
+        self.user = user
         super.init(frame: frame)
         
         backgroundColor = .backgroundColor
@@ -60,8 +65,9 @@ class MenuHeader: UIView {
         addSubview(stack)
         
         stack.centerY(inView: profileImageView, leftAnchor: profileImageView.rightAnchor, paddingLeft: 12)
-
     }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
