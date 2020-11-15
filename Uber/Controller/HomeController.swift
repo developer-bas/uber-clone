@@ -91,9 +91,9 @@ class HomeController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkIfUserIsLoggedIn()
-        enableLocationServices()
         
+        enableLocationServices()
+        configureUI()
 //        signOut()
        
     }
@@ -245,34 +245,9 @@ class HomeController: UIViewController  {
          }
     }
     
-//    MARK: - Shared API
+
     
    
-    
-    func checkIfUserIsLoggedIn(){
-        if  Auth.auth().currentUser?.uid == nil {
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                if #available(iOS 13.0, *) {
-                    nav.isModalInPresentation = true
-                }
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-            }
-        } else{
-           configure()
-        }
-        
-        
-    }
-    
-    func signOut(){
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("DEBUG: Error signing out")
-        }
-    }
     
     
     //    MARK: - Helper Function
