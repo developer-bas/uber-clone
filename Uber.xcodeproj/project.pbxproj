@@ -18,6 +18,7 @@
 		1515005A253814180087E085 /* RideActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15150059253814180087E085 /* RideActionView.swift */; };
 		1515005D25385A190087E085 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515005C25385A190087E085 /* Trip.swift */; };
 		1515006025394BE60087E085 /* PickupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515005F25394BE60087E085 /* PickupController.swift */; };
+		1517BA4B2563201500BBF665 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1517BA4A2563201500BBF665 /* AddLocationController.swift */; };
 		15235AA5255E1ACA00884AE3 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15235AA4255E1ACA00884AE3 /* MenuController.swift */; };
 		15235AA8255E1AF400884AE3 /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15235AA7255E1AF400884AE3 /* ContainerController.swift */; };
 		15235AAB255E7AF700884AE3 /* MenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15235AAA255E7AF700884AE3 /* MenuHeader.swift */; };
@@ -30,6 +31,8 @@
 		1589FA7925302AB70034BDAD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589FA7825302AB70034BDAD /* User.swift */; };
 		1589FA7C253047AE0034BDAD /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589FA7B253047AE0034BDAD /* LocationHandler.swift */; };
 		1589FAA3253471A60034BDAD /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1589FAA2253471A60034BDAD /* DriverAnnotation.swift */; };
+		158A3FBB25625377005BB458 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A3FBA25625377005BB458 /* SettingsController.swift */; };
+		158A3FD225625832005BB458 /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A3FD125625832005BB458 /* UserInfoHeader.swift */; };
 		15A09204252821840004E70B /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A09203252821840004E70B /* AuthButton.swift */; };
 		15E31BB62523443100195552 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E31BB52523443100195552 /* SignUpController.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +50,7 @@
 		15150059253814180087E085 /* RideActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideActionView.swift; sourceTree = "<group>"; };
 		1515005C25385A190087E085 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		1515005F25394BE60087E085 /* PickupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupController.swift; sourceTree = "<group>"; };
+		1517BA4A2563201500BBF665 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
 		15235AA4255E1ACA00884AE3 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		15235AA7255E1AF400884AE3 /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
 		15235AAA255E7AF700884AE3 /* MenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeader.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 		1589FA7825302AB70034BDAD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1589FA7B253047AE0034BDAD /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		1589FAA2253471A60034BDAD /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
+		158A3FBA25625377005BB458 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		158A3FD125625832005BB458 /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		15A09203252821840004E70B /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		15E31BB52523443100195552 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		37D234F134C84BE028E3BDC4 /* Pods_Uber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +130,7 @@
 				1589FA72252FDCFD0034BDAD /* LocationCell.swift */,
 				15150059253814180087E085 /* RideActionView.swift */,
 				15235AAA255E7AF700884AE3 /* MenuHeader.swift */,
+				158A3FD125625832005BB458 /* UserInfoHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -141,10 +148,9 @@
 		150CE1D6251C5721003B7865 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1517BA4925631FF400BBF665 /* Settings */,
 				15235AA3255E1A5400884AE3 /* SideMenu */,
 				15235AA2255E1A2200884AE3 /* Authentication */,
-				150CE1DA251C57EB003B7865 /* LoginController.swift */,
-				15E31BB52523443100195552 /* SignUpController.swift */,
 				1589FA5C252DB89D0034BDAD /* HomeController.swift */,
 				1515005F25394BE60087E085 /* PickupController.swift */,
 			);
@@ -168,9 +174,20 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		1517BA4925631FF400BBF665 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				158A3FBA25625377005BB458 /* SettingsController.swift */,
+				1517BA4A2563201500BBF665 /* AddLocationController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		15235AA2255E1A2200884AE3 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				150CE1DA251C57EB003B7865 /* LoginController.swift */,
+				15E31BB52523443100195552 /* SignUpController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -319,12 +336,15 @@
 				15E31BB62523443100195552 /* SignUpController.swift in Sources */,
 				15A09204252821840004E70B /* AuthButton.swift in Sources */,
 				1589FA5D252DB89D0034BDAD /* HomeController.swift in Sources */,
+				158A3FD225625832005BB458 /* UserInfoHeader.swift in Sources */,
+				158A3FBB25625377005BB458 /* SettingsController.swift in Sources */,
 				1589FA70252ECC3E0034BDAD /* LocationInputView.swift in Sources */,
 				1515005D25385A190087E085 /* Trip.swift in Sources */,
 				1515006025394BE60087E085 /* PickupController.swift in Sources */,
 				1589FAA3253471A60034BDAD /* DriverAnnotation.swift in Sources */,
 				150CE1DB251C57EB003B7865 /* LoginController.swift in Sources */,
 				150CE1BE251C566D003B7865 /* AppDelegate.swift in Sources */,
+				1517BA4B2563201500BBF665 /* AddLocationController.swift in Sources */,
 				1589FA73252FDCFD0034BDAD /* LocationCell.swift in Sources */,
 				15235AA5255E1ACA00884AE3 /* MenuController.swift in Sources */,
 				1589FA7C253047AE0034BDAD /* LocationHandler.swift in Sources */,
