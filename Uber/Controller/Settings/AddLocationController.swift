@@ -9,9 +9,15 @@ import UIKit
 import MapKit
 
 private let reusableIdentifier = "Cell"
-class AddLocationController: UITableViewController{
+
+protocol AddLocationControllerDelegate: class {
+   func updateLocation(locationString:  String, type: LocationType)
+}
+
+class AddLocationController: UITableViewController {
     
 //    MARK: - Properties
+    weak var delegate : AddLocationControllerDelegate?
     private let searchBar = UISearchBar()
     private let searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion](){
@@ -64,6 +70,9 @@ class AddLocationController: UITableViewController{
     }
 }
 
+
+
+
 extension AddLocationController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
@@ -78,6 +87,13 @@ extension AddLocationController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let result = searchResults[indexPath.row]
+        let title = result.title
+        let subtitle = result.subtitle
+        let location = title + " " + subtitle
+        delegate?.updateLocation(locationString: location , type: type)
+    }
 }
 
 //MARK: -UISearchBarDelegate

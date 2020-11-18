@@ -132,7 +132,18 @@ extension SettingsController {
         guard let type = LocationType(rawValue: indexPath.row) else {return}
         guard let location = locationManger?.location  else {return}
         let controller = AddLocationController(type: type, location: location)
+        controller.delegate = self
         let nav = UINavigationController(rootViewController: controller)
         present(nav, animated: true, completion: nil)
+    }
+}
+
+extension SettingsController : AddLocationControllerDelegate{
+    func updateLocation(locationString: String, type: LocationType) {
+        
+        PassengerService.shared.saveLocation(locationStrng: locationString, type: type) { (err, ref) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
 }
