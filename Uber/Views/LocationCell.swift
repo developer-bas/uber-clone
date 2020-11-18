@@ -18,12 +18,12 @@ class LocationCell: UITableViewCell {
         }
     }
     
-    var type: LocationType?{
-        didSet{
-            tittleLabel.text = type?.description
-            addressLabel.text = type?.subtitle
-        }
-    }
+//    var type: LocationType?{
+//        didSet{
+//            tittleLabel.text = type?.description
+//            addressLabel.text = type?.subtitle
+//        }
+//    }
     
     
     let tittleLabel: UILabel = {
@@ -33,7 +33,7 @@ class LocationCell: UITableViewCell {
         return label
     }()
     
-    private let addressLabel: UILabel = {
+    let addressLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .lightGray

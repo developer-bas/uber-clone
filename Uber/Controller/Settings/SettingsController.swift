@@ -36,7 +36,7 @@ enum LocationType: Int, CaseIterable, CustomStringConvertible{
 class SettingsController: UITableViewController {
     
 //    MARK: - Properties
-    private let user : User
+    private var user : User
     private let locationManger = LocationHandler.shared.locationManager
     
     private  lazy var infoHeader : UserInfoHeader = {
@@ -69,6 +69,18 @@ class SettingsController: UITableViewController {
     }
     
 //    MARK:  - Helper functions
+    
+    func locationType(forType type: LocationType ) -> String {
+        switch type {
+      
+        case .home:
+            return user.homeLocation ?? type.subtitle
+        case .work:
+            return user.workLocation ?? type.subtitle
+        }
+    }
+    
+    
     func configureTableView(){
         tableView.rowHeight = 60
         tableView.register(LocationCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -122,7 +134,8 @@ extension SettingsController {
 
         guard let type = LocationType(rawValue: indexPath.row) else {return cell}
 
-        cell.type = type
+        cell.tittleLabel.text = type.description
+        cell.addressLabel.text = locationType(forType: type)
 
         return cell
     }
@@ -143,6 +156,17 @@ extension SettingsController : AddLocationControllerDelegate{
         
         PassengerService.shared.saveLocation(locationStrng: locationString, type: type) { (err, ref) in
             self.dismiss(animated: true, completion: nil)
+            
+            
+            switch type{
+            
+            case .home:
+                self.user.homeLocation = locationString
+            case .work:
+                self.user.workLocation = locationString
+            }
+            
+            self.tableView.reloadData()
         }
         
     }
