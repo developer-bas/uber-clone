@@ -170,6 +170,15 @@ class ContainerController: UIViewController{
     
 }
 
+extension ContainerController: SettingsControllerDelegate{
+    func updateUser(_ controller: SettingsController) {
+        self.user = controller.user
+    }
+    
+   
+}
+
+
 extension ContainerController : HomeControllerDelegate{
     func handleMenuToggle() {
         isExpanded.toggle()
@@ -192,6 +201,7 @@ extension ContainerController : MenuControllerDelegate{
                     return
                 }
                 let controller = SettingsController(user: user)
+                controller.delegate = self
                 let  nav = UINavigationController(rootViewController: controller)
                 self.present(nav, animated: true, completion: nil)
             case .logout:
