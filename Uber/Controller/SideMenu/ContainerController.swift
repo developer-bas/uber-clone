@@ -55,14 +55,7 @@ class ContainerController: UIViewController{
     
     func checkIfUserIsLoggedIn(){
         if  Auth.auth().currentUser?.uid == nil {
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                if #available(iOS 13.0, *) {
-                    nav.isModalInPresentation = true
-                }
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-            }
+           presentLogingControler()
         } else{
            configure()
         }
@@ -86,16 +79,25 @@ class ContainerController: UIViewController{
     func signOut(){
         do {
             try Auth.auth().signOut()
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                self.present(nav, animated: true, completion: nil)
-            }
+            presentLogingControler()
         } catch {
             print("DEBUG: Error signing out")
         }
     }
     
 //    MARK: - Helper Functions
+    func presentLogingControler(){
+        DispatchQueue.main.async {
+            let nav = UINavigationController(rootViewController: LoginController())
+            if #available(iOS 13.0, *) {
+                nav.isModalInPresentation = true
+            }
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        }
+    }
+    
+    
     func configure(){
         configureHomeController()
         view.backgroundColor = .backgroundColor
