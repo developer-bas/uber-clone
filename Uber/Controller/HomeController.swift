@@ -177,6 +177,16 @@ class HomeController: UIViewController  {
                     
                 }
            
+            case .denied:
+                self.shouldPresentLoadingView(false)
+                self.presentAlertController(withTitle: "Oops", withMessage: "We couldn´t find a driver, please try again")
+                PassengerService.shared.deleteTrip { (err, ref) in
+                    self.centerMapOnUserLocation()
+                    self.configureActionButton(config: .showManu)
+                    self.inputActivationView.alpha = 1
+                    self.removeAnnotationAndOverlays()
+                    
+                }
             }
         }
     }
