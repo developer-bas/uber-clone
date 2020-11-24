@@ -34,6 +34,7 @@
 		158A3FBB25625377005BB458 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A3FBA25625377005BB458 /* SettingsController.swift */; };
 		158A3FD225625832005BB458 /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A3FD125625832005BB458 /* UserInfoHeader.swift */; };
 		159C5935256758290072C1C2 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C5934256758290072C1C2 /* CircularProgressView.swift */; };
+		159C593F256CCBC80072C1C2 /* CouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C593E256CCBC80072C1C2 /* CouponView.swift */; };
 		15A09204252821840004E70B /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A09203252821840004E70B /* AuthButton.swift */; };
 		15E31BB62523443100195552 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E31BB52523443100195552 /* SignUpController.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		158A3FBA25625377005BB458 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		158A3FD125625832005BB458 /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		159C5934256758290072C1C2 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		159C593E256CCBC80072C1C2 /* CouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponView.swift; sourceTree = "<group>"; };
 		15A09203252821840004E70B /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		15E31BB52523443100195552 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		37D234F134C84BE028E3BDC4 /* Pods_Uber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 				15235AAA255E7AF700884AE3 /* MenuHeader.swift */,
 				158A3FD125625832005BB458 /* UserInfoHeader.swift */,
 				159C5934256758290072C1C2 /* CircularProgressView.swift */,
+				159C593E256CCBC80072C1C2 /* CouponView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				1515005A253814180087E085 /* RideActionView.swift in Sources */,
 				1589FA7925302AB70034BDAD /* User.swift in Sources */,
 				1589FA7625301FC50034BDAD /* Service.swift in Sources */,
+				159C593F256CCBC80072C1C2 /* CouponView.swift in Sources */,
 				1589FA6D252EB9140034BDAD /* LocationInputActivationView.swift in Sources */,
 				150CE1EB251C5E03003B7865 /* Extension.swift in Sources */,
 			);
